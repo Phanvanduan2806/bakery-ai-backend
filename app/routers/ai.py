@@ -17,6 +17,7 @@ from app.services.kho.exports_recipe import get_recipe_exports
 from app.services.kho import get_current_user
 from app.services.kho.recipes import get_recipes
 from app.services.kho.imports import get_imports
+from app.services.kho.knowledge import get_knowledge
 
 router = APIRouter(
     prefix="/ai",
@@ -316,6 +317,35 @@ def recipes(
         )
 
         data = get_imports(
+            authorization
+        )
+
+        return {
+            "success": True,
+            "data": data
+        }
+
+    except Exception as e:
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+# =========================================================
+# AI KNOWLEDGE
+# =========================================================
+
+@router.get("/ai-knowledge")
+def knowledge(
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+    try:
+
+        authorization = (
+            f"Bearer {credentials.credentials}"
+        )
+
+        data = get_knowledge(
             authorization
         )
 

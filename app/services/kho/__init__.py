@@ -15,3 +15,6 @@ from app.services.kho.user import (
 from app.services.kho.exports_single import (
     get_single_exports
 )
+from app.services.kho.knowledge import (
+    get_knowledge
+)
